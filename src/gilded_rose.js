@@ -1,3 +1,4 @@
+// Teständerung
 function Item(name, sell_in, quality) {
     this.name = name;
     this.sell_in = sell_in;
@@ -16,7 +17,7 @@ function isSulfuras(item) {
     return item.name === 'Sulfuras, Hand of Ragnaros';
 }
 
-var items = []
+const items = [];
 
 items.push(new Item('+5 Dexterity Vest', 10, 20));
 items.push(new Item('Aged Brie', 2, 0));
@@ -26,27 +27,27 @@ items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
 items.push(new Item('Conjured Mana Cake', 3, 6));
 
 function update_quality() {
-    for (var i = 0; i < items.length; i++) {
-        var item = items[i];
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i];
 
         if (!isAgedBrie(item) && !isBackstagePass(item)) {
             if (item.quality > 0) {
                 if (!isSulfuras(item)) {
-                    item.quality = item.quality - 1;
+                    item.quality -= 1;
                 }
             }
         } else {
             if (item.quality < 50) {
-                item.quality = item.quality + 1;
+                item.quality += 1;
                 if (isBackstagePass(item)) {
                     if (item.sell_in < 11) {
                         if (item.quality < 50) {
-                            item.quality = item.quality + 1;
+                            item.quality += 1;
                         }
                     }
                     if (item.sell_in < 6) {
                         if (item.quality < 50) {
-                            item.quality = item.quality + 1;
+                            item.quality += 1;
                         }
                     }
                 }
@@ -54,7 +55,7 @@ function update_quality() {
         }
 
         if (!isSulfuras(item)) {
-            item.sell_in = item.sell_in - 1;
+            item.sell_in -= 1;
         }
 
         if (item.sell_in < 0) {
@@ -62,7 +63,7 @@ function update_quality() {
                 if (!isBackstagePass(item)) {
                     if (item.quality > 0) {
                         if (!isSulfuras(item)) {
-                            item.quality = item.quality - 1;
+                            item.quality -= 1;
                         }
                     }
                 } else {
@@ -70,9 +71,18 @@ function update_quality() {
                 }
             } else {
                 if (item.quality < 50) {
-                    item.quality = item.quality + 1;
+                    item.quality += 1;
                 }
             }
         }
     }
 }
+
+// Exportieren für Tests und um ESLint "no-unused-vars" zu erfüllen
+module.exports = {
+    Item,
+    items,
+    update_quality
+};
+
+//  geändert am 1. Juli für kata4
