@@ -1,4 +1,5 @@
 // Teständerung
+
 function Item(name, sell_in, quality) {
     this.name = name;
     this.sell_in = sell_in;
@@ -17,14 +18,16 @@ function isSulfuras(item) {
     return item.name === 'Sulfuras, Hand of Ragnaros';
 }
 
-const items = [];
+// WICHTIG: var statt const, damit Tests das Array überschreiben können
+var items = [];
 
-items.push(new Item('+5 Dexterity Vest', 10, 20));
-items.push(new Item('Aged Brie', 2, 0));
-items.push(new Item('Elixir of the Mongoose', 5, 7));
-items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
-items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
-items.push(new Item('Conjured Mana Cake', 3, 6));
+// Diese Beispielitems auskommentieren – Tests setzen ihre eigenen Items
+// items.push(new Item('+5 Dexterity Vest', 10, 20));
+// items.push(new Item('Aged Brie', 2, 0));
+// items.push(new Item('Elixir of the Mongoose', 5, 7));
+// items.push(new Item('Sulfuras, Hand of Ragnaros', 0, 80));
+// items.push(new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20));
+// items.push(new Item('Conjured Mana Cake', 3, 6));
 
 function update_quality() {
     for (let i = 0; i < items.length; i++) {
@@ -78,11 +81,11 @@ function update_quality() {
     }
 }
 
-// Exportieren für Tests und um ESLint "no-unused-vars" zu erfüllen
-module.exports = {
-    Item,
-    items,
-    update_quality
-};
-
-//  geändert am 1. Juli für kata4
+// Export für Tests im Terminal (Node.js) – funktioniert auch im Browser
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        Item,
+        items,
+        update_quality
+    };
+}
